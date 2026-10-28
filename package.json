@@ -1,0 +1,40 @@
+{
+  "name": "koc-automation",
+  "version": "1.0.0",
+  "description": "KOC Campaign Automation System - Google Drive, Sheets, Docs & Social Media Metric Scrapers",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsx src/index.ts",
+    "cron": "tsx src/jobs/scheduler.ts",
+    "sync": "tsx src/cli/run-sync.ts",
+    "sync:force": "tsx src/cli/run-sync.ts --all",
+    "export": "tsx src/cli/run-export.ts"
+  },
+  "keywords": [
+    "koc",
+    "automation",
+    "sheets",
+    "docs",
+    "metrics"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.8.2",
+    "cheerio": "^1.0.0",
+    "commander": "^13.1.0",
+    "dotenv": "^16.4.7",
+    "googleapis": "^144.0.0",
+    "node-cron": "^3.0.3",
+    "playwright": "^1.64.1",
+    "playwright-core": "^1.64.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "@types/node-cron": "^3.0.11",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}
