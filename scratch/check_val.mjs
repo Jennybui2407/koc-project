@@ -8,21 +8,18 @@ async function checkValidation() {
 
   const res = await sheets.spreadsheets.get({
     spreadsheetId,
-    ranges: ["'Data KOC Saga đi tiệc'!A7:O50"],
-    fields: 'sheets.data.rowData.values.dataValidation',
+    ranges: ["'Data KOC Saga đi tiệc'!I7:I100"],
+    includeGridData: true,
   });
 
-  const rowData = res.data.sheets[0].data[0].rowData;
-  // Check row 8 (sample row) validations
-  if (rowData && rowData.length > 1) {
-    const cells = rowData[1].values;
-    cells.forEach((c, idx) => {
-      if (c && c.dataValidation) {
-        console.log(`Col ${String.fromCharCode(65 + idx)} validation:`, JSON.stringify(c.dataValidation.condition));
-      }
-    });
+  const cells = res.data.sheets[0].data[0].rowData;
+  for (let i = 0; i < cells.length; i++) {
+    const row = cells[i];
+    if (row && row.values && row.values[0] && row.values[0].dataValidation) {
+      console.log(`Row ${i + 7} validation:`, JSON.stringify(row.values[0].dataValidation, null, 2));
+      break;
+    }
   }
 }
 
 checkValidation().catch(console.error);
-

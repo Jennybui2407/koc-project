@@ -10,7 +10,8 @@
     "cron": "tsx src/jobs/scheduler.ts",
     "sync": "tsx src/cli/run-sync.ts",
     "sync:force": "tsx src/cli/run-sync.ts --all",
-    "export": "tsx src/cli/run-export.ts"
+    "export": "tsx src/cli/run-export.ts",
+    "audit": "node scripts/koc_audit.mjs"
   },
   "keywords": [
     "koc",
