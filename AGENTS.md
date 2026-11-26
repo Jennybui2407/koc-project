@@ -24,6 +24,7 @@ Tất cả các workflow và bước đã được testing/thống nhất thành
    - **Quy tắc bắt buộc "không có"**: Ngoại trừ Cột J (để trống khi không rõ), bất kỳ ô nào từ **Cột B đến Cột Q** thiếu thông tin (F Tên thật, L FB, M IG, N Youtube, O Contact) thì **bắt buộc ghi chữ `không có`**, tuyệt đối không bỏ trống.
    - **Cột công thức & ô màu xanh cố định (A, D, X, Z, AA)**: Tuyệt đối không điền giá trị và không format đè lên các ô này để công thức `=ARRAYFORMULA(...)` ở dòng 1 tự nhảy. Quá trình ghi chỉ update hai cụm riêng Cột B:C và Cột E:Q.
    - **Vị trí & Định dạng**: Điền lùi tuần tự từ dưới lên trên vào các hàng trống có sẵn (ví dụ Hàng 9 -> 8 -> 7... đến Hàng 2). Khi hết hàng trống (Hàng 2 đã có data) thì mới tạo thêm hàng mới ngay tại **Hàng 2** (dưới Header); nếu thêm nhiều KOC cùng lúc thì thêm theo chiều từ trên xuống (Hàng 2, 3, 4...). Toàn bộ ô dùng chuẩn **Font Nunito, cỡ chữ 9pt** và chiều cao hàng cố định **`32px`**.
+   - **Thực thi không hỏi quyền**: Tuyệt đối không dùng `node -e "..."` hay lệnh shell thay đổi. Ghi payload vào `scratch/current_koc.json` và chạy **duy nhất 1 lệnh cố định**: `node scripts/run_audit.mjs` (tự động check trùng -> điền vào sheet -> đọc xác nhận).
    - Trả về bảng Markdown tóm tắt thông tin đã điền cùng link xác nhận sau khi hoàn tất.
 
 ---

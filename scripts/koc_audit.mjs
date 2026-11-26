@@ -25,10 +25,10 @@ function parseDateDMY(dStr) {
 // Map Tier to exact dropdown string of Data KOC (11/2026)
 export function normalizeTier(tier) {
   const t = (tier || '').toLowerCase();
-  if (t.includes('mega') || t.includes('>1m')) return 'Mega (Trên 1 TRIỆU followers)';
-  if (t.includes('macro') || t.includes('>300k')) return 'Macro (300K đến 1 TRIỆU followers)';
+  if (t.includes('nano') || t.includes('<10k') || t.includes('aff') || t.includes('1k - 10k') || t.includes('1k-10k')) return 'Nano (1K - 10K followers)';
+  if (t.includes('mega') || t.includes('>1m') || t.includes('trên 1 triệu')) return 'Mega (Trên 1 TRIỆU followers)';
+  if (t.includes('macro') || t.includes('>300k') || t.includes('300k đến 1')) return 'Macro (300K đến 1 TRIỆU followers)';
   if (t.includes('micro') || t.includes('30k') || t.includes('10k')) return 'Micro (10K đến 300K followers)';
-  if (t.includes('nano') || t.includes('<10k') || t.includes('aff')) return 'Nano (1K - 10K followers)';
   return 'Micro (10K đến 300K followers)';
 }
 
@@ -154,17 +154,20 @@ export async function insertKoc(data) {
   const sheets = await getSheetsClient();
   
   // 1. Tìm vị trí hàng trống để điền:
-  // Quét Col E từ Hàng 2 đến Hàng 100 để tìm hàng đầu tiên có dữ liệu
+  // Quét Col B:E từ Hàng 2 đến Hàng 100 để tìm hàng đầu tiên có dữ liệu (tránh ghi đè hàng người khác đã điền tên/ngày)
   const scanRes = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `'${sheetTitle}'!E2:E100`,
+    range: `'${sheetTitle}'!B2:E100`,
   });
   const scanRows = scanRes.data.values || [];
   let firstRowWithData = -1; // 1-based row number
   for (let i = 0; i < scanRows.length; i++) {
-    const val = scanRows[i] && scanRows[i][0] ? String(scanRows[i][0]).trim() : '';
-    if (val !== '') {
-      firstRowWithData = i + 2; // ví dụ i=8 -> Hàng 10
+    const row = scanRows[i] || [];
+    const colB = row[0] ? String(row[0]).trim() : '';
+    const colC = row[1] ? String(row[1]).trim() : '';
+    const colE = row[3] ? String(row[3]).trim() : '';
+    if (colB !== '' || colC !== '' || colE !== '') {
+      firstRowWithData = i + 2; // ví dụ i=5 -> Hàng 7
       break;
     }
   }
@@ -257,7 +260,7 @@ export async function insertKoc(data) {
   const colsBC = [
     // Col B: Người phụ trách
     {
-      userEnteredValue: { stringValue: data.finder || 'Thuận' },
+      userEnteredValue: { stringValue: data.finder || process.env.KOC_FINDER_NAME || 'Thuận' },
       userEnteredFormat: cellFmt('CENTER', 'OVERFLOW_CELL'),
     },
     // Col C: Ngày tìm

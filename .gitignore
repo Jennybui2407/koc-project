@@ -4,3 +4,4 @@ logs/*.log
 .env
 *.local
 .DS_Store
+scratch/

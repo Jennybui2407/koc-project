@@ -32,4 +32,6 @@ Khi người dùng gửi ảnh chụp kênh TikTok của KOC: làm đúng theo `
 - **Quy tắc bắt buộc "không có"**: Ngoại trừ Cột J (để trống khi không rõ), bất kỳ ô nào từ **Cột B đến Cột Q** không có thông tin (như Cột F Tên thật, Cột L FB, Cột M IG, Cột N Youtube, Cột O Contact) thì **bắt buộc ghi chữ `không có`**, tuyệt đối không bỏ trống.
 - **Khu vực (Cột J)**: Điền tỉnh/thành phố cụ thể (`Sài Gòn`, `Hà Nội`...). **Riêng cột khu vực nếu quét không ra KOC ở khu vực nào thì ĐỂ TRỐNG** (không ghi "không có" để khớp chuẩn Dropdown).
 - **Định dạng chuẩn**: Font `Nunito`, cỡ chữ **`9` (9pt)** theo chuẩn Hàng 2 và Hàng 3.
-- Tự động điền 100% không hỏi lại khi đã chuẩn bị xong payload.
+- **Chạy tự động không hỏi lại (Zero-Prompt)**:
+  - **Tuyệt đối KHÔNG dùng `node -e "..."`** hoặc các lệnh shell có tham số thay đổi (để tránh hệ thống hỏi cấp quyền liên tục).
+  - Bắt buộc ghi thông tin KOC vào `scratch/current_koc.json` (bằng tool `write_file`), sau đó chạy **duy nhất 1 lệnh cố định**: `node scripts/run_audit.mjs` (lệnh này đã gộp sẵn: Check trùng -> Điền lùi vào hàng trống hoặc chèn Hàng 2 -> Đọc lại dòng xác nhận).

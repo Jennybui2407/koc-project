@@ -146,10 +146,11 @@ Chọn **chính xác theo danh sách Dropdown** (chú ý dấu cách sau gạch 
 }
 ```
 
-#### 2. Lệnh Chạy Cố Định
+#### 2. Lệnh Chạy Cố Định (Gộp sẵn Check trùng + Điền sheet + Verify)
 ```bash
 node scripts/run_audit.mjs
 ```
+*(Tuyệt đối KHÔNG dùng `node -e "..."` hay các lệnh biến đổi để tránh hỏi cấp quyền liên tục; lệnh trên sẽ tự động check trùng 30/60 ngày, điền vào sheet nếu hợp lệ và đọc lại dòng xác nhận)*
 
 #### 3. Bảng Markdown Tóm Tắt Trả Về Sau Khi Điền
 Sau khi điền thành công vào sheet, trả về bảng tổng kết trực quan:
